@@ -87,5 +87,14 @@ function updateWordAndCharacterCount() {
   document.getElementById("totalWords").textContent = totalWords;
 }
 
+// Gắn sự kiện cho các nút bằng addEventListener
+document
+  .getElementById("calculateDensityButton")
+  .addEventListener("click", calculateDensity);
+document
+  .getElementById("suggestKeywordButton")
+  .addEventListener("click", suggestKeywordAppearance);
+
+// Sự kiện input để cập nhật số ký tự và từ liên tục
 const contentTextarea = document.getElementById("content");
 contentTextarea.addEventListener("input", updateWordAndCharacterCount);

@@ -18,13 +18,15 @@
         <label for="content">Nhập nội dung:</label>
         <textarea id="content" rows="10" placeholder="Nhập văn bản ở đây..."></textarea>
 
-        <button onclick="calculateDensity()">Tính Mật Độ</button>
+        <!-- Nút tính mật độ -->
+        <button id="calculateDensityButton">Tính Mật Độ</button>
 
         <!-- Thêm phần nhập tổng số từ và nút đề xuất độ xuất hiện từ khóa -->
         <label for="totalWordsInput">Nhập tổng số từ:</label>
         <input type="number" id="totalWordsInput" placeholder="Nhập tổng số từ trong đoạn văn">
 
-        <button onclick="suggestKeywordAppearance()">Đề Xuất Số Lần Xuất Hiện Từ Khóa</button>
+        <!-- Nút đề xuất số lần xuất hiện từ khóa -->
+        <button id="suggestKeywordButton">Đề Xuất Số Lần Xuất Hiện Từ Khóa</button>
 
         <div id="result">
             <p><strong>Số lần xuất hiện từ khóa:</strong> <span id="keywordCount">0</span></p>
