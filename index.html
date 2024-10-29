@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -19,11 +20,18 @@
 
         <button onclick="calculateDensity()">Tính Mật Độ</button>
 
+        <!-- Thêm phần nhập tổng số từ và nút đề xuất độ xuất hiện từ khóa -->
+        <label for="totalWordsInput">Nhập tổng số từ:</label>
+        <input type="number" id="totalWordsInput" placeholder="Nhập tổng số từ trong đoạn văn">
+
+        <button onclick="suggestKeywordAppearance()">Đề Xuất Số Lần Xuất Hiện Từ Khóa</button>
+
         <div id="result">
             <p><strong>Số lần xuất hiện từ khóa:</strong> <span id="keywordCount">0</span></p>
             <p><strong>Tổng số ký tự:</strong> <span id="totalCharacters">0</span></p>
             <p><strong>Tổng số từ:</strong> <span id="totalWords">0</span></p>
             <p><strong>Mật độ từ khóa:</strong> <span id="keywordDensity">0</span>%</p>
+            <p><strong>Đề xuất số lần xuất hiện từ khóa:</strong> <span id="suggestedKeywordCount">0</span></p>
         </div>
     </div>
     <script src="./js/index.js"></script>

@@ -9,7 +9,6 @@ function removeVietnameseTones(str) {
 
 // Hàm tính toán mật độ từ khóa
 function calculateDensity() {
-  // Lấy giá trị từ trường nhập liệu và loại bỏ dấu tiếng Việt
   let keyword = document.getElementById("keyword").value.trim().toLowerCase();
   let content = document.getElementById("content").value.trim().toLowerCase();
 
@@ -22,51 +21,71 @@ function calculateDensity() {
   keyword = removeVietnameseTones(keyword);
   content = removeVietnameseTones(content);
 
-  // Tách nội dung thành các đoạn (dựa trên dấu xuống dòng)
   const paragraphs = content.split(/\n+/); // Tách đoạn bằng ký tự xuống dòng
-
   let keywordCount = 0;
-
-  // Sử dụng RegExp để đếm số lần xuất hiện của từ khóa trong mỗi đoạn
-  const regex = new RegExp(keyword, "gi"); // 'g' để tìm tất cả, 'i' để không phân biệt hoa thường
+  const regex = new RegExp(keyword, "gi");
 
   paragraphs.forEach((paragraph) => {
-    const matches = paragraph.match(regex); // Tìm tất cả các lần xuất hiện của từ khóa
+    const matches = paragraph.match(regex);
     if (matches) {
-      keywordCount += matches.length; // Cộng số lần xuất hiện trong đoạn vào tổng
+      keywordCount += matches.length;
     }
   });
 
-  // Hiển thị số lần xuất hiện từ khóa
   document.getElementById("keywordCount").textContent = keywordCount;
 
-  // Tính mật độ từ khóa dựa trên tổng số từ trong toàn bộ nội dung
   const totalWords = content
     .split(/\s+/)
     .filter((word) => word.length > 0).length;
   const keywordDensity = (keywordCount / totalWords) * 100;
-
-  // Hiển thị mật độ từ khóa
   document.getElementById("keywordDensity").textContent =
     keywordDensity.toFixed(2);
+}
+
+// Hàm đề xuất số lần xuất hiện từ khóa
+function suggestKeywordAppearance() {
+  const keyword = document.getElementById("keyword").value.trim();
+  const totalWordsInput = document.getElementById("totalWordsInput").value;
+
+  if (!keyword || !totalWordsInput) {
+    alert("Vui lòng nhập từ khóa và tổng số từ.");
+    return;
+  }
+
+  const totalWords = parseInt(totalWordsInput);
+  const keywordLength = keyword.split(/\s+/).length; // Độ dài từ khóa
+
+  let suggestedCount = 0;
+
+  if (keywordLength >= 1 && keywordLength <= 4) {
+    suggestedCount = ((2.5 / 100) * totalWords) / 4;
+  } else if (keywordLength >= 5 && keywordLength <= 9) {
+    suggestedCount = ((2.5 / 100) * totalWords) / keywordLength;
+  }
+
+  // Xử lý làm tròn
+  let result;
+  if (suggestedCount % 1 < 0.5) {
+    result = Math.floor(suggestedCount); // Nếu dưới 0.5, làm tròn xuống
+  } else {
+    result = `${Math.floor(suggestedCount)} hoặc ${Math.ceil(suggestedCount)}`; // Nếu từ 0.5 trở lên, hiển thị 2 kết quả
+  }
+
+  // Hiển thị kết quả đề xuất
+  document.getElementById("suggestedKeywordCount").textContent = result;
 }
 
 // Hàm cập nhật số ký tự và từ
 function updateWordAndCharacterCount() {
   const content = document.getElementById("content").value.trim();
 
-  // Tính tổng số ký tự
   const totalCharacters = content.length;
-
-  // Tính tổng số từ (loại bỏ các từ rỗng do khoảng trắng)
   const words = content.split(/\s+/);
   const totalWords = words.filter((word) => word.length > 0).length;
 
-  // Hiển thị tổng số ký tự và từ
   document.getElementById("totalCharacters").textContent = totalCharacters;
   document.getElementById("totalWords").textContent = totalWords;
 }
 
-// Sự kiện input để cập nhật số ký tự và từ liên tục
 const contentTextarea = document.getElementById("content");
 contentTextarea.addEventListener("input", updateWordAndCharacterCount);
