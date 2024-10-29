@@ -1,0 +1,32 @@
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Mật Độ Từ Khóa</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Công Cụ Tính Mật Độ Từ Khóa</h1>
+
+        <label for="keyword">Nhập từ khóa:</label>
+        <input type="text" id="keyword" placeholder="Nhập từ khóa">
+
+        <label for="content">Nhập nội dung:</label>
+        <textarea id="content" rows="10" placeholder="Nhập văn bản ở đây..."></textarea>
+
+        <button onclick="calculateDensity()">Tính Mật Độ</button>
+
+        <div id="result">
+            <p><strong>Số lần xuất hiện từ khóa:</strong> <span id="keywordCount">0</span></p>
+            <p><strong>Tổng số ký tự:</strong> <span id="totalCharacters">0</span></p>
+            <p><strong>Tổng số từ:</strong> <span id="totalWords">0</span></p>
+            <p><strong>Mật độ từ khóa:</strong> <span id="keywordDensity">0</span>%</p>
+        </div>
+    </div>
+    <script src="./Js/index.js"></script>
+</body>
+
+</html>
