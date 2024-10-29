@@ -22,16 +22,28 @@ function calculateDensity() {
   keyword = removeVietnameseTones(keyword);
   content = removeVietnameseTones(content);
 
-  // Sử dụng regex để đếm số lần từ khóa xuất hiện trong đoạn văn
-  const regex = new RegExp(keyword.split(/\s+/).join(".*?"), "gi");
-  const matches = content.match(regex);
-  const keywordCount = matches ? matches.length : 0;
+  // Tách nội dung thành các đoạn (dựa trên dấu xuống dòng)
+  const paragraphs = content.split(/\n+/); // Tách đoạn bằng ký tự xuống dòng
 
-  // Hiển thị số lần xuất hiện
+  let keywordCount = 0;
+
+  // Sử dụng RegExp để đếm số lần xuất hiện của từ khóa trong mỗi đoạn
+  const regex = new RegExp(keyword, "gi"); // 'g' để tìm tất cả, 'i' để không phân biệt hoa thường
+
+  paragraphs.forEach((paragraph) => {
+    const matches = paragraph.match(regex); // Tìm tất cả các lần xuất hiện của từ khóa
+    if (matches) {
+      keywordCount += matches.length; // Cộng số lần xuất hiện trong đoạn vào tổng
+    }
+  });
+
+  // Hiển thị số lần xuất hiện từ khóa
   document.getElementById("keywordCount").textContent = keywordCount;
 
-  // Tính mật độ từ khóa (giả định đoạn văn đã nhập không cần tách từ)
-  const totalWords = content.split(/\s+/).length;
+  // Tính mật độ từ khóa dựa trên tổng số từ trong toàn bộ nội dung
+  const totalWords = content
+    .split(/\s+/)
+    .filter((word) => word.length > 0).length;
   const keywordDensity = (keywordCount / totalWords) * 100;
 
   // Hiển thị mật độ từ khóa
